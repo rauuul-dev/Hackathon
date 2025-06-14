@@ -7,21 +7,6 @@ from preguntes import PreRes, ResCor
 # Inicialitzem Pygame
 pygame.init()
 
-# Constants de la finestra
-AMPLADA = 800
-ALCADA = 600
-finestra = pygame.display.set_mode((AMPLADA, ALCADA))
-pygame.display.set_caption("Laberint de problemes")
-
-# Carrega fons i portes (després de set_mode!)
-fons = pygame.image.load("assets/fons/fons_retro.png").convert()
-porta_imgs = [
-    pygame.image.load("assets/portes/porta1.png").convert_alpha(),
-    pygame.image.load("assets/portes/porta2.png").convert_alpha(),
-    pygame.image.load("assets/portes/porta3.png").convert_alpha(),
-    pygame.image.load("assets/portes/porta4.png").convert_alpha(),
-]
-
 # Conexió amb servidor
 resposta = requests.get("https://fun.codelearn.cat/hackathon/game/new")
 dades = resposta.json()
@@ -32,6 +17,12 @@ game_id = dades["game_id"]
 print(game_id)
 
 random.seed(seed)
+
+# Constants de la finestra
+AMPLADA = 800
+ALCADA = 600
+finestra = pygame.display.set_mode((AMPLADA, ALCADA))
+pygame.display.set_caption("Laberint de problemes")
 
 # Colors (R, G, B)
 VERMELL = (255, 0, 0)
@@ -60,9 +51,6 @@ def prepara_preguntes(ultima_pregunta=None):
 
 p1 = p2 = p3 = p4 = p5 = p6 = p7 = p8 = p9 = p10 = False
 
-num_errors = 0
-# Variables globals per a la pregunta actual i la resposta correcta
-
 # Dimensions de les portes
 ample_porta = 160
 alt_porta = 350
@@ -76,72 +64,79 @@ total_amplada_portes = 4 * ample_porta + 3 * espai_entre_portes
 marge_lateral = (AMPLADA - total_amplada_portes) // 2
 
 # Font per al text
-font = pygame.font.Font("assets/retro_font.ttf", 16)  # Abans 36
+font = pygame.font.SysFont(None, 36)
 
 # Funció colocar portes i pregunta
 def portes():
-    finestra.blit(fons, (0, 0))
-    # Elimina la línia de puntuació:
-    # puntuacio_text = font.render(f"Punts: {score}", True, (0, 0, 0))
-    # finestra.blit(puntuacio_text, (AMPLADA - 200, 20))
+    # Pintem el fons de blanc
+    finestra.fill((255, 255, 255))
 
+    # Dibuixem la puntuació a la cantonada superior dreta
+    puntuacio_text = font.render(f"Punts: {score}", True, (0, 0, 0))
+    finestra.blit(puntuacio_text, (AMPLADA - 200, 20))
+
+    # Dibuixem les quatre portes centrades amb text
     for i in range(4):
         x = marge_lateral + i * (ample_porta + espai_entre_portes)
         y = (ALCADA - alt_porta) // 2 - 30
+        pygame.draw.rect(finestra, colors_portes[i], (x, y, ample_porta, alt_porta))
+        
+        lines = wrap_text(preguntesJoc[a][i + 1], font, ample_porta - 2)
 
-        # Dibuixa la imatge de la porta redimensionada
-        porta_img = pygame.transform.smoothscale(porta_imgs[i], (ample_porta, alt_porta))
-        finestra.blit(porta_img, (x, y))
-
-        # Centra la resposta al centre de la porta
-        lines = wrap_text(preguntesJoc[a][i + 1], font, ample_porta - 10)
-        total_text_height = len(lines) * font.get_height()
-        y_text = y + (alt_porta // 2) - (total_text_height // 2)
+        # Dibuixar línia per línia
         for line in lines:
             text_surface = font.render(line, True, NEGRE)
-            text_rect = text_surface.get_rect(center=(x + ample_porta // 2, y_text))
+            text_rect = text_surface.get_rect(center=(x + ample_porta // 2, y + alt_porta // 2))
             finestra.blit(text_surface, text_rect)
-            y_text += text_surface.get_height()
+            y += text_surface.get_height() + 5  # Espai entre línies
 
-    # Pregunta a sota de les portes
-    y_preg = (ALCADA - alt_porta) // 2 + alt_porta + 30
-    lines = wrap_text(preguntesJoc[a][0], font, AMPLADA - 40)
+    y = (ALCADA - alt_porta) // 2 - 30
+    lines = wrap_text(preguntesJoc[a][0], font, AMPLADA - 20)
+
+    # Dibuixar línia per línia
     for line in lines:
         text_surface = font.render(line, True, NEGRE)
-        text_rect = text_surface.get_rect(center=(AMPLADA // 2, y_preg))
+        text_rect = text_surface.get_rect(center=(AMPLADA // 2, y + alt_porta + 40))
         finestra.blit(text_surface, text_rect)
-        y_preg += text_surface.get_height() + 2
+        y += text_surface.get_height() + 5  # Espai entre línies
 
 def pantalla_inici():
-    boto_rects = []
-    boto_texts = ["Comença", "Tipus: General"]  # Pots afegir més tipus en el futur
-    boto_font = pygame.font.Font("assets/retro_font.ttf", 36)
-    logo = pygame.image.load("assets/logo.png").convert_alpha()
-    logo_rect = logo.get_rect(center=(AMPLADA // 2, 220))
-    for i, text in enumerate(boto_texts):
-        rect = pygame.Rect((AMPLADA - 300) // 2, 350 + i * 90, 300, 70)
-        boto_rects.append(rect)
+    a = 0
+    p1 = p2 = p3 = p4 = p5 = p6 = p7 = p8 = p9 = p10 = False
+    boto_amplada = 200
+    boto_alcada = 60
+    boto_color = (0, 200, 0)
+    boto_color_hover = (0, 255, 0)
+    titol_font = pygame.font.SysFont(None, 72)
+    boto_font = pygame.font.SysFont(None, 48)
+    titol = titol_font.render("Laberint de problemes", True, (0, 0, 128))
+    titol_rect = titol.get_rect(center=(AMPLADA // 2, ALCADA // 2 - 100))
+    boto_rect = pygame.Rect((AMPLADA - boto_amplada) // 2, (ALCADA - boto_alcada) // 2 + 50, boto_amplada, boto_alcada)
+    boto_text = boto_font.render("Start", True, (255, 255, 255))
+    boto_text_rect = boto_text.get_rect(center=boto_rect.center)
+
     inici = True
-    tipus_idx = 0
     while inici:
-        finestra.blit(fons, (0, 0))
-        finestra.blit(logo, logo_rect)
+        finestra.fill((255, 255, 255))
+        finestra.blit(titol, titol_rect)
+
         mouse = pygame.mouse.get_pos()
-        for i, rect in enumerate(boto_rects):
-            color = (255, 0, 128) if rect.collidepoint(mouse) else (0, 0, 0)
-            pygame.draw.rect(finestra, color, rect, border_radius=12)
-            text = boto_font.render(boto_texts[i], True, (255, 255, 255))
-            text_rect = text.get_rect(center=rect.center)
-            finestra.blit(text, text_rect)
+        if boto_rect.collidepoint(mouse):
+            color = boto_color_hover
+        else:
+            color = boto_color
+
+        pygame.draw.rect(finestra, color, boto_rect, border_radius=10)
+        finestra.blit(boto_text, boto_text_rect)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if boto_rects[0].collidepoint(event.pos):
+                if boto_rect.collidepoint(event.pos):
                     inici = False
-                elif boto_rects[1].collidepoint(event.pos):
-                    tipus_idx = (tipus_idx + 1) % 1  # Canvia el tipus de preguntes (afegeix més si vols)
+
         pygame.display.flip()
 
 
@@ -188,11 +183,9 @@ def envia_estat_joc(game_id, pregunta_actual, encerts, score, forcat=False):
         "data": {
             "pregunta_actual": pregunta_actual,
             "encerts": encerts,
-            "score": score,
-            "errors": num_errors
+            "score": score
         }
     }
-    print("Enviant al servidor:", dades)
     try:
         resposta = requests.post(url, json=dades)
         if resposta.headers.get("Content-Type", "").startswith("application/json"):
@@ -213,25 +206,25 @@ def envia_final_joc(game_id, encerts, score):
         },
         "score": score
     }
-    print("Enviant al servidor (final):", dades)  # Mostra el que s'envia
     try:
         resposta = requests.post(url, json=dades)
         if resposta.headers.get("Content-Type", "").startswith("application/json"):
             resposta_json = resposta.json()
-            print("Finalització servidor:", resposta_json)  # Mostra el que retorna
+            print("Finalització servidor:", resposta_json)
         else:
             print("Resposta no JSON:", resposta.text)
     except Exception as e:
         print("Error finalitzant joc:", e)
 
 def pantalla_victoria():
-    font_gran = pygame.font.Font("assets/retro_font.ttf", 72)
-    text = font_gran.render("🏆 VICTÒRIA! 🏆", True, (0, 255, 0))
+    finestra.fill((255, 255, 255))
+    font_gran = pygame.font.SysFont(None, 72)
+    text = font_gran.render("Has sortit del laberint!", True, (0, 128, 0))
     text_rect = text.get_rect(center=(AMPLADA // 2, ALCADA // 2))
-    finestra.blit(fons, (0, 0))
     finestra.blit(text, text_rect)
     pygame.display.flip()
-    pygame.time.wait(3000)
+    envia_final_joc(game_id, sum([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]), score)
+    pygame.time.wait(3000)  # Espera 3 segons
 
 def comprovacio():
     if p1:
@@ -310,9 +303,9 @@ while executant:
                             score = max(30, score - 5)
                         print("Has fallat! Torna a començar.")
                         reinicia_partida(preguntesJoc[a][0])
-                        num_errors += 1
+                        encertades_seguides = 0
                         portes()
-                        envia_estat_joc(game_id, a, encertades_seguides, score, forcat=True)
+                        envia_estat_joc(game_id, a, 0, score, forcat=True)
                         break
                     a += 1
                     if encertades_seguides == 10:
