@@ -6,12 +6,12 @@ Benvingut/da al **Laberint de Problemes**, un joc creat per a la Hackathon **Hac
 
 ## 🕹️ Com es juga?
 
-En aquest joc et trobaràs dins d’un laberint virtual ple de portes misterioses. Darrere de cada porta hi ha una pregunta matemàtica o de lògica. Només podràs avançar si respons correctament! Si falles... hauràs de tornar a començar el laberint amb preguntes noves! 😱
+Et trobaràs dins d’un laberint virtual ple de portes misterioses. Darrere de cada porta hi ha una pregunta de cultura general, matemàtiques, ciències, programació, història, geografia, tecnologia, esport o arts. Només podràs avançar si respons correctament! Si falles... hauràs de tornar a començar el laberint amb preguntes noves! 😱
 
 ### 🎯 Objectiu
 
 - Respon correctament a **10 preguntes seguides** per escapar del laberint.
-- Cada pregunta té **4 opcions**. Només una és la correcta!
+- Cada pregunta té **4 opcions** (l'ordre de les opcions canvia cada cop!). Només una és la correcta!
 - Si falles, la següent pregunta mai serà igual a l’anterior. El repte sempre continua! 🔄
 
 ---
@@ -20,13 +20,14 @@ En aquest joc et trobaràs dins d’un laberint virtual ple de portes misteriose
 
 - **Puntuació inicial:** 100 punts. Cada error et resta punts, però mai baixes de 30.
 - **Preguntes aleatòries:** Cada partida és diferent!
+- **Opcions barrejades:** L'ordre de les respostes canvia cada cop per evitar patrons.
 - **Interfície visual:** Tria la porta que creguis correcta fent clic.
 - **Connexió amb servidor:** El teu progrés es guarda i s’envia a la plataforma de la hackathon.
 - **Pantalla de victòria:** Si encertes totes, surts del laberint i veus el teu èxit! 🎉
 
 ---
 
-## 💡 Exemple de preguntes (no reals)
+## 💡 Exemple de preguntes
 
 > 🟢 "Quants gats hi ha si veus 3 cues i cada gat té una cua?"
 >
