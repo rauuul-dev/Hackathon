@@ -127,6 +127,38 @@ marge_lateral = (AMPLADA - total_amplada_portes) // 2
 # Font per al text
 font = pygame.font.Font("assets/retro_font.ttf", 16)  # Abans 36
 
+default_font_name = "assets/retro_font.ttf"
+default_font_size = 22
+min_font_size = 10
+max_font_size = 22
+
+def get_max_font_size_fit(words, max_width, max_font_size, min_font_size):
+    """Troba la mida màxima de font amb què totes les paraules capin en amplada."""
+    for font_size in range(max_font_size, min_font_size - 1, -1):
+        font = pygame.font.Font(default_font_name, font_size)
+        if all(font.render(word, True, NEGRE).get_width() <= max_width for word in words):
+            return font
+    return pygame.font.Font(default_font_name, min_font_size)
+
+def wrap_text(text, font, max_width):
+    words = text.split()
+    lines = []
+    current_line = ""
+
+    for word in words:
+        test_line = current_line + " " + word if current_line else word
+        if font.render(test_line, True, NEGRE).get_width() <= max_width:
+            current_line = test_line
+        else:
+            if current_line:
+                lines.append(current_line)
+            current_line = word
+
+    if current_line:
+        lines.append(current_line)
+
+    return lines
+
 # Funció colocar portes i pregunta
 def render_text_fit(text, font_path, color, max_width, max_height, min_size=10, max_size=22):
     """Renderitza el text ajustant la mida de la font perquè càpiga dins max_width i max_height."""
@@ -142,32 +174,25 @@ def render_text_fit(text, font_path, color, max_width, max_height, min_size=10, 
 
 def portes():
     finestra.blit(fons, (0, 0))
-    # Elimina la línia de puntuació:
-    # puntuacio_text = font.render(f"Punts: {score}", True, (0, 0, 0))
-    # finestra.blit(puntuacio_text, (AMPLADA - 200, 20))
-
-    font_path = "assets/retro_font.ttf"
     resposta_max_width = ample_porta - 24
-    resposta_max_height = 60  # Ajusta segons l'alçada de la porta
 
     for i in range(4):
         x = marge_lateral + i * (ample_porta + espai_entre_portes)
         y = (ALCADA - alt_porta) // 2 - 30
 
-        # Dibuixa la imatge de la porta redimensionada
         porta_img = pygame.transform.smoothscale(porta_imgs[i], (ample_porta, alt_porta))
         finestra.blit(porta_img, (x, y))
 
         resposta_text = preguntesJoc[a][i + 1]
-        resposta_surface = render_text_fit(
-            resposta_text,
-            font_path,
-            (255, 255, 255),
-            resposta_max_width,
-            resposta_max_height
-        )
-        resposta_rect = resposta_surface.get_rect(center=(x + ample_porta // 2, y + alt_porta // 2))
-        finestra.blit(resposta_surface, resposta_rect)
+        words = resposta_text.split()
+        resposta_font = get_max_font_size_fit(words, resposta_max_width, max_font_size, min_font_size)
+        resposta_lines = wrap_text(resposta_text, resposta_font, resposta_max_width)
+        resposta_y = y + alt_porta // 2 - (len(resposta_lines) * resposta_font.get_height()) // 2
+        for line in resposta_lines:
+            resposta_surface = resposta_font.render(line, True, (255, 255, 255))
+            resposta_rect = resposta_surface.get_rect(center=(x + ample_porta // 2, resposta_y))
+            finestra.blit(resposta_surface, resposta_rect)
+            resposta_y += resposta_surface.get_height()
 
     # Pregunta a sota de les portes
     y_preg = (ALCADA - alt_porta) // 2 + alt_porta + 30
