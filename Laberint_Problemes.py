@@ -2,7 +2,15 @@ import pygame
 import random
 import requests
 import time
-from preguntes import PreResProg, ResCorProg, PreResMat, ResCorMat, PreResGen, ResCorGen
+from preguntes.preguntes_prog import PreResProg, ResCorProg
+from preguntes.preguntes_mat import PreResMat, ResCorMat
+from preguntes.preguntes_gen import PreResGen, ResCorGen
+from preguntes.preguntes_hist import PreResHist, ResCorHist
+from preguntes.preguntes_geo import PreResGeo, ResCorGeo
+from preguntes.preguntes_tec import PreResTec, ResCorTec
+from preguntes.preguntes_cie import PreResCie, ResCorCie
+from preguntes.preguntes_esport import PreResEsport, ResCorEsport
+from preguntes.preguntes_arts import PreResArts, ResCorArts
 
 import sys
 
@@ -72,7 +80,13 @@ respostes_seleccionades = []
 tipus_preguntes = [
     ("Programació", PreResProg, ResCorProg),
     ("Matemàtiques", PreResMat, ResCorMat),
-    ("Cultura General", PreResGen, ResCorGen)
+    ("Cultura General", PreResGen, ResCorGen),
+    ("Història", PreResHist, ResCorHist),
+    ("Geografia", PreResGeo, ResCorGeo),
+    ("Tecnologia", PreResTec, ResCorTec),
+    ("Ciències", PreResCie, ResCorCie),
+    ("Esport", PreResEsport, ResCorEsport),
+    ("Arts", PreResArts, ResCorArts),
 ]
 tipus_idx = 0  # Per defecte, programació
 
@@ -114,11 +128,27 @@ marge_lateral = (AMPLADA - total_amplada_portes) // 2
 font = pygame.font.Font("assets/retro_font.ttf", 16)  # Abans 36
 
 # Funció colocar portes i pregunta
+def render_text_fit(text, font_path, color, max_width, max_height, min_size=10, max_size=22):
+    """Renderitza el text ajustant la mida de la font perquè càpiga dins max_width i max_height."""
+    size = max_size
+    while size >= min_size:
+        font = pygame.font.Font(font_path, size)
+        text_surface = font.render(text, True, color)
+        if text_surface.get_width() <= max_width and text_surface.get_height() <= max_height:
+            return text_surface
+        size -= 1
+    font = pygame.font.Font(font_path, min_size)
+    return font.render(text, True, color)
+
 def portes():
     finestra.blit(fons, (0, 0))
     # Elimina la línia de puntuació:
     # puntuacio_text = font.render(f"Punts: {score}", True, (0, 0, 0))
     # finestra.blit(puntuacio_text, (AMPLADA - 200, 20))
+
+    font_path = "assets/retro_font.ttf"
+    resposta_max_width = ample_porta - 24
+    resposta_max_height = 60  # Ajusta segons l'alçada de la porta
 
     for i in range(4):
         x = marge_lateral + i * (ample_porta + espai_entre_portes)
@@ -128,15 +158,16 @@ def portes():
         porta_img = pygame.transform.smoothscale(porta_imgs[i], (ample_porta, alt_porta))
         finestra.blit(porta_img, (x, y))
 
-        # Centra la resposta al centre de la porta
-        lines = wrap_text(preguntesJoc[a][i + 1], font, ample_porta - 20)
-        total_text_height = len(lines) * font.get_height()
-        y_text = y + (alt_porta // 2) - (total_text_height // 2)
-        for line in lines:
-            text_surface = font.render(line, True, (255, 255, 255))  # Canviat a blanc
-            text_rect = text_surface.get_rect(center=(x + ample_porta // 2, y_text))
-            finestra.blit(text_surface, text_rect)
-            y_text += text_surface.get_height()
+        resposta_text = preguntesJoc[a][i + 1]
+        resposta_surface = render_text_fit(
+            resposta_text,
+            font_path,
+            (255, 255, 255),
+            resposta_max_width,
+            resposta_max_height
+        )
+        resposta_rect = resposta_surface.get_rect(center=(x + ample_porta // 2, y + alt_porta // 2))
+        finestra.blit(resposta_surface, resposta_rect)
 
     # Pregunta a sota de les portes
     y_preg = (ALCADA - alt_porta) // 2 + alt_porta + 30
@@ -153,7 +184,7 @@ def pantalla_inici():
     boto_font = pygame.font.Font("assets/retro_font.ttf", 32)
     logo = pygame.image.load("assets/logo.png").convert_alpha()
     logo_rect = logo.get_rect(center=(AMPLADA // 2, 220))
-    boto_w, boto_h = 500, 70
+    boto_w, boto_h = 550, 70
     boto_margin = 18  # Espai intern pels costats
 
     inici = True
@@ -248,7 +279,12 @@ def envia_estat_joc(game_id, pregunta_actual, encerts, score, forcat=False):
             "pregunta_actual": pregunta_actual,
             "encerts": encerts,
             "score": score,
-            "errors": num_errors
+            "errors": num_errors,
+            "a": a,
+            "encertades_seguides": encertades_seguides,
+            "encerts_totals": encerts_totals,
+            "executant": executant,
+            "pregunta_text": preguntesJoc[a][0] if a < len(preguntesJoc) else "N/A"
         }
     }
     log("Enviant estat al servidor", **dades["data"])
@@ -285,7 +321,7 @@ def envia_final_joc(game_id, encerts, score):
 
 def pantalla_victoria():
     font_gran = pygame.font.Font("assets/retro_font.ttf", 72)
-    text = font_gran.render("🏆 VICTÒRIA! 🏆", True, (0, 255, 0))
+    text = font_gran.render("🏆 VICTÒRIA! 🏆", True, NEGRE)
     text_rect = text.get_rect(center=(AMPLADA // 2, ALCADA // 2))
     finestra.blit(fons, (0, 0))
     finestra.blit(text, text_rect)

@@ -1,0 +1,38 @@
+PreResCie = [
+    ["Quin òrgan bombeja la sang?", "Cervell", "Pulmons", "Cor", "Fetge"],
+    ["Quin element químic té el símbol H?", "Heli", "Hidrogen", "Hafni", "Holmi"],
+    ["Quin és el planeta més proper al Sol?", "Venus", "Terra", "Mercuri", "Mart"],
+    ["Què són els glòbuls vermells?", "Cèl·lules nervioses", "Cèl·lules immunitàries", "Cèl·lules sanguínies que transporten oxigen", "Virus"],
+    ["Quin gas respirem principalment?", "Diòxid de carboni", "Hidrogen", "Oxigen", "Nitrogen"],
+    ["Quin és el sistema responsable del moviment?", "Digestiu", "Circulatori", "Muscular", "Nerviós"],
+    ["Quin és el satèl·lit natural de la Terra?", "Sol", "Marte", "Luna", "Europa"],
+    ["Quina part de la planta fa la fotosíntesi?", "Arrel", "Tija", "Fulla", "Flor"],
+    ["Què és una espècie?", "Tipus de roca", "Tipus d’àtom", "Grup d’éssers vius amb característiques comunes", "Zona geogràfica"],
+    ["Què és l’ADN?", "Àcid desoxiribonucleic", "Àcid làctic", "Glucosa", "Proteïna sanguínia"],
+    ["Quin planeta té anells visibles?", "Terra", "Marte", "Saturn", "Venus"],
+    ["Com es diu el procés de pas de sòlid a líquid?", "Condensació", "Sublimació", "Fusió", "Evaporació"],
+    ["Quants ossos té un adult?", "206", "305", "100", "150"],
+    ["Quin és el principal òrgan del sistema nerviós?", "Cor", "Estómac", "Cervell", "Ronyó"],
+    ["Què mesura un termòmetre?", "Pressió", "Hidratació", "Temperatura", "Velocitat"],
+    ["Quin òrgan elimina l’orina?", "Pulmons", "Ronyons", "Estómac", "Fetge"],
+    ["Quina és la unitat de mesura de la força?", "Pascal", "Newton", "Joule", "Volt"],
+    ["Què és un herbívor?", "Menja carn", "Menja plantes", "Menja de tot", "No menja"],
+    ["Quina vitamina s’obté del Sol?", "Vitamina A", "Vitamina B", "Vitamina C", "Vitamina D"],
+    ["Què són els bacteris?", "Animals petits", "Virus", "Microorganismes", "Plantes"],
+    ["Què regula la gravetat?", "Moviment de l’aire", "Caiguda dels cossos", "Electricitat", "Llum"],
+    ["Què és una metamorfosi?", "Canvi químic", "Transformació d’un animal", "Evaporació", "Digestió"],
+    ["Què mesura un baròmetre?", "Temperatura", "Humitat", "Pressió atmosfèrica", "Llum"],
+    ["Quin tipus de dents serveixen per tallar?", "Canins", "Incisius", "Molars", "Premolars"],
+    ["Quin és el principal component de l’aigua?", "Hidrogen i oxigen", "Carboni i oxigen", "Hidrogen i nitrogen", "Oxigen i heli"],
+    ["Què fan els pulmons?", "Filtren sang", "Digereixen", "Absorbeixen nutrients", "Intercanvien gasos"],
+    ["Com es diu el procés de respiració de les plantes?", "Fotosíntesi", "Transpiració", "Respiració cel·lular", "Condensació"],
+    ["Quina funció fa el sistema digestiu?", "Oxigenar la sang", "Produir hormones", "Descompondre aliments", "Transportar oxigen"],
+    ["Quin és l’estat del vapor d’aigua?", "Sòlid", "Líquid", "Gasós", "Plasma"],
+    ["Quin tipus de planeta és la Terra?", "Gasós", "Nan", "Rocós", "Líquid"],
+]
+
+ResCorCie = [
+    "Cor", "Hidrogen", "Mercuri", "Cèl·lules sanguínies que transporten oxigen", "Nitrogen", "Muscular", "Luna", "Fulla", "Grup d’éssers vius amb característiques comunes", "Àcid desoxiribonucleic",
+    "Saturn", "Fusió", "206", "Cervell", "Temperatura", "Ronyons", "Newton", "Menja plantes", "Vitamina D", "Microorganismes", "Caiguda dels cossos", "Transformació d’un animal", "Pressió atmosfèrica",
+    "Incisius", "Hidrogen i oxigen", "Intercanvien gasos", "Respiració cel·lular", "Descompondre aliments", "Gasós", "Rocós"
+]

@@ -1,0 +1,38 @@
+PreResEsport = [
+    ["Quants jugadors té un equip de futbol?", "10", "11", "12", "9"],
+    ["Quina disciplina forma part dels Jocs Olímpics?", "Pòquer", "Futbol", "Bàsquet", "Escacs"],
+    ["Quin és el principal objectiu del ioga?", "Córrer ràpid", "Relaxació i força", "Ganar múscul", "Competir"],
+    ["En quin esport es fa servir una raqueta?", "Hoquei", "Tennis", "Futbol", "Rem"],
+    ["Quants minuts dura un partit de futbol (temps regular)?", "60", "70", "90", "120"],
+    ["Com es diu el moviment bàsic per nedar d’esquena?", "Papallona", "Crol", "Braça", "Esquena"],
+    ["Quants jugadors hi ha en bàsquet per equip al camp?", "5", "6", "7", "4"],
+    ["Què és el dopatge?", "Entrenament", "Suport", "Consum de substàncies il·legals", "Reforç mental"],
+    ["Qui va guanyar més medalles olímpiques?", "Usain Bolt", "Michael Phelps", "Nadal", "Simone Biles"],
+    ["En quin esport s'utilitza una pista de 400 m?", "Tennis", "Futbol", "Atletisme", "Natació"],
+    ["En quin esport s'utilitza un tatami?", "Boxa", "Judo", "Rugbi", "Futbol sala"],
+    ["Què és el fair play?", "Empènyer el rival", "Fer trampes", "Joc net", "Celebrar massa"],
+    ["Què treballa la flexibilitat?", "Força", "Resistència", "Mobilitat articular", "Velocitat"],
+    ["Quina part del cos impulsa la carrera?", "Peus", "Cames", "Braços", "Coll"],
+    ["Quin esport es juga sobre gel?", "Esquí aquàtic", "Patinatge artístic", "Voleibol", "Handbol"],
+    ["Quin és l'esport que es juga amb una cistella?", "Futbol", "Bàsquet", "Rugbi", "Hoquei"],
+    ["Què mesura el cronòmetre?", "Distància", "Temps", "Alçada", "Força"],
+    ["Quin esport es practica amb una bicicleta?", "Ciclisme", "Esgrima", "Rem", "Judo"],
+    ["Com es diu el salt sense córrer?", "Salt vertical", "Salt de llargada", "Salt d’alçada", "Salt de potència"],
+    ["Quin tipus d’esport és la marató?", "Força", "Velocitat", "Fons", "Salt"],
+    ["Què és la coordinació?", "Sincronitzar moviments", "Córrer ràpid", "Fer salts", "Aixecar pes"],
+    ["Quin esport inclou disciplines com espasa i sabre?", "Esgrima", "Rem", "Atletisme", "Lluita"],
+    ["Quants segons tens per servir en tennis?", "15", "25", "10", "5"],
+    ["Què és un estirament?", "Moviment violent", "Recolzament", "Acció per millorar flexibilitat", "Carrera ràpida"],
+    ["Quin esport es juga amb una pilota ovalada?", "Bàsquet", "Rugbi", "Futbol sala", "Tennis"],
+    ["Quin esport es practica amb cavalls?", "Jòquei", "Equitació", "Ciclisme", "Esgrima"],
+    ["Què és el fons físic?", "Poc esforç", "Resistència llarga", "Velocitat màxima", "Potència curta"],
+    ["En quin esport es fa servir un casc i una bici?", "Esgrima", "Hípica", "Ciclisme", "Rugbi"],
+    ["Quin esport es juga amb pals i porteries sobre gel?", "Hòquei sobre gel", "Hoquei herba", "Bàsquet", "Esgrima"],
+    ["Quin esport és olímpic d’estiu?", "Snowboard", "Esgrima", "Esquí", "Trineu"],
+]
+
+ResCorEsport = [
+    "11", "Futbol", "Relaxació i força", "Tennis", "90", "Esquena", "5", "Consum de substàncies il·legals", "Michael Phelps", "Atletisme",
+    "Judo", "Joc net", "Mobilitat articular", "Cames", "Patinatge artístic", "Bàsquet", "Temps", "Ciclisme", "Salt vertical", "Fons",
+    "Sincronitzar moviments", "Esgrima", "25", "Acció per millorar flexibilitat", "Rugbi", "Equitació", "Resistència llarga", "Ciclisme", "Hòquei sobre gel", "Esgrima"
+]

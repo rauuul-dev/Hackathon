@@ -1,0 +1,38 @@
+PreResArts = [
+    ["Quantes cordes té una guitarra espanyola?", "4", "5", "6", "7"],
+    ["Qui va pintar La Mona Lisa?", "Picasso", "Van Gogh", "Leonardo da Vinci", "Dalí"],
+    ["Quin instrument té tecles?", "Guitarra", "Piano", "Violí", "Trompeta"],
+    ["Què és una simfonia?", "Cançó", "Obra musical llarga per orquestra", "Ball", "Pintura"],
+    ["Quin pintor és famós pel cubisme?", "Miró", "Picasso", "Goya", "Van Gogh"],
+    ["Com es diu l’art de plegar paper?", "Origami", "Mandala", "Stencil", "Collage"],
+    ["Quants colors primaris hi ha?", "2", "3", "4", "5"],
+    ["Qui va compondre la 5a simfonia?", "Beethoven", "Mozart", "Bach", "Vivaldi"],
+    ["Què és una aquarel·la?", "Pintura amb oli", "Pintura amb aigua", "Dibuix amb llapis", "Collage"],
+    ["Quin estil de ball prové dels EUA?", "Flamenc", "Hip-hop", "Sardana", "Tango"],
+    ["Quin instrument té baquetes?", "Violí", "Timbal", "Trompeta", "Flauta"],
+    ["Què és una òpera?", "Concert de rock", "Obra musical amb cantants", "Simfonia curta", "Teatre sense música"],
+    ["Quin compositor és conegut per 'Les Quatre Estacions'?", "Bach", "Mozart", "Vivaldi", "Beethoven"],
+    ["Quin gènere és el jazz?", "Clàssic", "Modern", "Improvisat", "Tradicional"],
+    ["Com es diu el conjunt d’actors d’una obra?", "Grup", "Cor", "Companyia", "Taller"],
+    ["Quina dansa és típica de Catalunya?", "Tango", "Flamenc", "Sardana", "Sevillana"],
+    ["Quin pintor tenia una etapa blava?", "Miró", "Dalí", "Picasso", "Monet"],
+    ["Quin instrument és de vent?", "Piano", "Flauta", "Violí", "Arpa"],
+    ["Què són les arts escèniques?", "Cinema", "Teatre, dansa i música en viu", "Pintura", "Escultura"],
+    ["Què és un mural?", "Quadre petit", "Pintura sobre paret", "Escultura de fusta", "Fotografia"],
+    ["Qui va pintar 'El crit'?", "Munch", "Goya", "Renoir", "Degas"],
+    ["Quin element és bàsic per dibuixar?", "Llum", "Sorra", "Llapis", "Fusta"],
+    ["Què és un pentagrama?", "Instrument", "Sistema de 5 línies per escriure música", "Nota musical", "Ritme"],
+    ["Què és el tempo?", "Altura del so", "Velocitat de la música", "Tipus d’instrument", "Color musical"],
+    ["Quin compositor era sord?", "Mozart", "Bach", "Beethoven", "Vivaldi"],
+    ["Quin tipus de música és per ballar?", "Rock", "Pop", "Discoteca", "Totes les anteriors"],
+    ["Què fa un director d’orquestra?", "Ballar", "Compondre", "Guiar els músics", "Afinar"],
+    ["Què és una escultura?", "Música", "Forma artística tridimensional", "Ball", "Dibuix en paper"],
+    ["Quina és la funció d’un museu?", "Ballar", "Exposar art", "Cantar", "Vendre"],
+    ["Què és una partitura?", "Dibuix", "Text", "Esquema de música escrita", "Cançó"],
+]
+
+ResCorArts = [
+    "6", "Leonardo da Vinci", "Piano", "Obra musical llarga per orquestra", "Picasso", "Origami", "3", "Beethoven", "Pintura amb aigua", "Hip-hop",
+    "Timbal", "Obra musical amb cantants", "Vivaldi", "Improvisat", "Companyia", "Sardana", "Picasso", "Flauta", "Teatre, dansa i música en viu", "Pintura sobre paret",
+    "Munch", "Llapis", "Sistema de 5 línies per escriure música", "Velocitat de la música", "Beethoven", "Totes les anteriors", "Guiar els músics", "Forma artística tridimensional", "Exposar art", "Esquema de música escrita"
+]

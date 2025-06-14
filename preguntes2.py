@@ -49,7 +49,7 @@ PreResMat = [
     ["En Joan té 12 anys més que en Pere. Si la suma de les seves edats és 40, quants anys tenen en Joan i en Pere?", "Joan: 20, Pere: 20", "Joan: 26, Pere: 14", "Joan: 24, Pere: 16", "Joan: 28, Pere: 12"],
     ["La Maria compra pomes a 2 € cadascuna. Si es gasta 18 €, quantes pomes ha comprat?", "8 pomes", "10 pomes", "6 pomes", "9 pomes"],
     ["Un nombre sumat amb 7 dóna 21. Quin és aquest nombre?", "12", "16", "14", "13"],
-    ["Una entrada de cinema costa 8 €, i unes crispetes costen 5 €. Si en total s'han gastat 45 € en entrades i crispetes, i s'han comprat 3 entrades, quantes bossetes de crispetes s'han comprat?", "4 bossetes", "3 bossetes", "2 bossetes", "5 bossetes"],
+    ["Una entrada de cinema costa 8 €, i unes crispetes costen 5 €. Si en total s'han gastat 39 € en entrades i crispetes, i s'han comprat 3 entrades, quantes bossetes de crispetes s'han comprat?", "4 bossetes", "3 bossetes", "2 bossetes", "5 bossetes"],
     ["La Carla té el doble de diners que en Marc. Si entre tots dos tenen 72 €, quant té cadascú?", "Carla: 36, Marc: 36", "Carla: 30, Marc: 42", "Carla: 48, Marc: 24", "Carla: 40, Marc: 32"],
     ["Si a un nombre li multipliquem per 4 i li restem 6, obtenim 18. Quin és aquest nombre?", "5", "7", "4", "6"],
     ["Si la meitat d’un nombre menys 3 és igual a 7, quin és el nombre?", "14", "20", "24", "16"],
