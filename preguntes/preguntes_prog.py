@@ -1,213 +1,213 @@
 PreResProg = [
     [
         "Què és HTML?",
-        "Un llenguatge de programació",
         "Un llenguatge de marcat",
+        "Un navegador web",
         "Un sistema operatiu",
-        "Un navegador web"
+        "Un llenguatge de programació"
     ],
     [
         "Què significa CSS?",
         "Cascading Style Sheets",
-        "Creative Style Syntax",
+        "Custom Style Source",
         "Computer Style System",
-        "Custom Style Source"
+        "Creative Style Syntax"
     ],
     [
         "Per a què serveix JavaScript?",
-        "Per gestionar servidors",
+        "Per afegir interactivitat a les webs",
         "Per fer càlculs matemàtics",
-        "Per estilitzar pàgines web",
-        "Per afegir interactivitat a les webs"
+        "Per gestionar servidors",
+        "Per fer càlculs matemàtics"
     ],
     [
         "Quina extensió tenen normalment els arxius HTML?",
-        ".htm",
         ".html",
+        ".page",
         ".web",
-        ".page"
+        ".htm"
     ],
     [
         "Quina d’aquestes és una estructura de control?",
-        "div",
         "if",
         "font",
-        "href"
+        "href",
+        "div"
     ],
     [
         "Quina diferència hi ha entre '==' i '===' a JavaScript?",
-        "Cap diferència",
         "Comparació estricta vs comparació flexible",
+        "Són funcions de classe",
         "Són operadors aritmètics",
-        "Són funcions de classe"
+        "Cap diferència"
     ],
     [
         "Què fa un 'for loop'?",
-        "Declara una variable",
         "Repeteix instruccions",
+        "Importa llibreries",
         "Crea una funció",
-        "Importa llibreries"
+        "Declara una variable"
     ],
     [
         "Quin d’aquests no és un llenguatge de programació?",
-        "Python",
-        "Scratch",
         "Linux",
-        "Java"
+        "Java",
+        "Python",
+        "Scratch"
     ],
     [
         "Què és una funció?",
-        "Un tipus de dada",
         "Un mètode per repetir codi",
+        "Una etiqueta HTML",
         "Una variable",
-        "Una etiqueta HTML"
+        "Un tipus de dada"
     ],
     [
         "Què és Git?",
         "Un sistema de control de versions",
-        "Un tipus de servidor",
+        "Un editor de codi",
         "Un llenguatge de programació",
-        "Un editor de codi"
+        "Un tipus de servidor"
     ],
     [
         "Quina d’aquestes és una llibreria de Python?",
         "Pandas",
-        "Vue",
+        "Laravel",
         "React",
-        "Laravel"
+        "Vue"
     ],
     [
         "Per a què serveix SQL?",
-        "Per dissenyar webs",
         "Per gestionar bases de dades",
+        "Per fer jocs",
         "Per fer gràfics",
-        "Per fer jocs"
+        "Per dissenyar webs"
     ],
     [
         "Quin d’aquests és un sistema operatiu?",
         "Windows",
-        "Java",
+        "CSS",
         "HTML",
-        "CSS"
+        "Java"
     ],
     [
         "Per què serveix el comandament 'print()' a Python?",
         "Per imprimir a la pantalla",
-        "Per guardar un arxiu",
+        "Per llegir dades",
         "Per començar un bucle",
-        "Per llegir dades"
+        "Per guardar un arxiu"
     ],
     [
         "Quin és l’ús de '<head>' en HTML?",
-        "Conté el contingut visible",
         "Conté metadades i enllaços",
         "Mostra imatges",
-        "Executa codi JavaScript"
+        "Executa codi JavaScript",
+        "Conté el contingut visible"
     ],
     [
         "Què és una variable?",
-        "Un número",
         "Una dada canviant",
+        "Una funció",
         "Un tipus d’error",
-        "Una funció"
+        "Un número"
     ],
     [
         "Quina diferència hi ha entre 'let' i 'const' a JavaScript?",
-        "'let' és per constants",
-        "'const' pot canviar",
         "'let' pot canviar",
-        "No hi ha diferència"
+        "'const' pot canviar",
+        "No hi ha diferència",
+        "'let' és per constants"
     ],
     [
         "Com es comenta una línia a Python?",
-        "// comentari",
         "# comentari",
+        "/* comentari */",
         "<!-- comentari -->",
-        "/* comentari */"
+        "// comentari"
     ],
     [
         "Quin d’aquests és un bucle?",
         "while",
-        "with",
+        "class",
         "def",
-        "class"
+        "with"
     ],
     [
         "Com es defineix una funció a Python?",
-        "function nom()",
         "def nom():",
+        "define nom()",
         "func nom()",
-        "define nom()"
+        "function nom()"
     ],
     [
         "Per a què serveix 'return' en una funció?",
-        "Per començar la funció",
-        "Per declarar variables",
         "Per retornar un valor",
-        "Per acabar un bucle"
+        "Per acabar un bucle",
+        "Per declarar variables",
+        "Per començar la funció"
     ],
     [
         "Quina etiqueta HTML crea un enllaç?",
-        "<link>",
         "<a>",
+        "<url>",
         "<href>",
-        "<url>"
+        "<link>"
     ],
     [
         "Quin d’aquests no és un navegador web?",
-        "Chrome",
-        "Firefox",
+        "Visual Studio",
         "Safari",
-        "Visual Studio"
+        "Chrome",
+        "Firefox"
     ],
     [
         "Què fa un servidor web?",
         "Mostra webs als usuaris",
-        "Dibuixa imatges",
+        "Tradueix textos",
         "Edita vídeos",
-        "Tradueix textos"
+        "Dibuixa imatges"
     ],
     [
         "Com es crea un objecte a JavaScript?",
         "var obj = {}",
-        "function obj()",
+        "obj = []",
         "object.create()",
-        "obj = []"
+        "function obj()"
     ],
     [
         "Quina estructura guarda múltiples valors?",
-        "variable",
         "array",
         "comentari",
-        "funció"
+        "funció",
+        "variable"
     ],
     [
         "Com s’escriu un condicional en Python?",
         "if x > 0:",
-        "cond x > 0",
+        "if x > 0 then",
         "x > 0 then",
-        "if x > 0 then"
+        "cond x > 0"
     ],
     [
         "Com es concatena text en Python?",
         '"Hola" + " món"',
-        '"Hola", "món"',
+        '"Hola" . "món"',
         '"Hola" & "món"',
-        '"Hola" . "món"'
+        '"Hola", "món"'
     ],
     [
         "Per a què serveix 'console.log' en JavaScript?",
-        "Per mostrar errors",
         "Per mostrar missatges al navegador",
+        "Per importar dades",
         "Per crear variables",
-        "Per importar dades"
+        "Per mostrar errors"
     ],
     [
         "Què fa un framework?",
         "Automatitza tasques de programació",
-        "Són només estils visuals",
+        "És un tipus d’antivirus",
         "Només funciona amb bases de dades",
-        "És un tipus d’antivirus"
+        "Són només estils visuals"
     ],
 ]
 

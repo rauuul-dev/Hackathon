@@ -1,0 +1,17 @@
+# Ignora carpetes de cache de Python
+__pycache__/
+*/__pycache__/
+**/__pycache__/
+
+# Ignora fitxers compilats de Python
+*.pyc
+*.pyo
+*.pyd
+
+# Altres fitxers temporals
+*.log
+*.tmp
+*.swp
+*.bak
+.DS_Store
+Thumbs.db

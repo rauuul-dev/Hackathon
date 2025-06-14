@@ -38,6 +38,11 @@ def log_state():
 
 # Inicialitzem Pygame
 pygame.init()
+pygame.mixer.init()
+pygame.mixer.music.load("assets/musicafons.mp3")  # Posa aquí el teu fitxer de música
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
+volum = 0.5
 
 # Constants de la finestra
 AMPLADA = 800
@@ -176,6 +181,16 @@ def portes():
     finestra.blit(fons, (0, 0))
     resposta_max_width = ample_porta - 24
 
+    # Títol de la pregunta a dalt
+    lines = wrap_text(preguntesJoc[a][0], font, AMPLADA - 40)
+    y_preg = 40
+    for line in lines:
+        text_surface = font.render(line, True, NEGRE)
+        text_rect = text_surface.get_rect(center=(AMPLADA // 2, y_preg))
+        finestra.blit(text_surface, text_rect)
+        y_preg += text_surface.get_height() + 2
+
+    # Portes i respostes
     for i in range(4):
         x = marge_lateral + i * (ample_porta + espai_entre_portes)
         y = (ALCADA - alt_porta) // 2 - 30
@@ -194,15 +209,6 @@ def portes():
             finestra.blit(resposta_surface, resposta_rect)
             resposta_y += resposta_surface.get_height()
 
-    # Pregunta a sota de les portes
-    y_preg = (ALCADA - alt_porta) // 2 + alt_porta + 30
-    lines = wrap_text(preguntesJoc[a][0], font, AMPLADA - 40)
-    for line in lines:
-        text_surface = font.render(line, True, NEGRE)
-        text_rect = text_surface.get_rect(center=(AMPLADA // 2, y_preg))
-        finestra.blit(text_surface, text_rect)
-        y_preg += text_surface.get_height() + 2
-
 def pantalla_inici():
     global tipus_idx, PreRes, ResCor
     boto_rects = []
@@ -214,14 +220,16 @@ def pantalla_inici():
 
     inici = True
     while inici:
-        # Texts actualitzats segons el tipus seleccionat
         boto_texts = [
             "Comença",
-            f"Tipus: {tipus_preguntes[tipus_idx][0]}"
+            f"Tipus: {tipus_preguntes[tipus_idx][0]}",
+            "Crèdits"
         ]
+        # Ara amb separació d'alçada entre botons
         boto_rects = [
             pygame.Rect((AMPLADA - boto_w) // 2, 350, boto_w, boto_h),
-            pygame.Rect((AMPLADA - boto_w) // 2, 350 + 90, boto_w, boto_h)
+            pygame.Rect((AMPLADA - boto_w) // 2, 350 + 90, boto_w, boto_h),
+            pygame.Rect((AMPLADA - boto_w) // 2, 350 + 180, boto_w, boto_h)
         ]
 
         finestra.blit(fons, (0, 0))
@@ -230,13 +238,10 @@ def pantalla_inici():
         for i, rect in enumerate(boto_rects):
             color = (255, 0, 128) if rect.collidepoint(mouse) else (0, 0, 0)
             pygame.draw.rect(finestra, color, rect, border_radius=12)
-            # Renderitza el text i centra'l amb marge intern
             text = boto_font.render(boto_texts[i], True, (255, 255, 255))
             text_rect = text.get_rect()
             text_rect.center = rect.center
-            # Ajusta el text perquè no quedi enganxat als costats
             if text_rect.width > rect.width - 2 * boto_margin:
-                # Si el text és massa llarg, redueix la mida de la font
                 shrink_font = pygame.font.Font("assets/retro_font.ttf", 24)
                 text = shrink_font.render(boto_texts[i], True, (255, 255, 255))
                 text_rect = text.get_rect()
@@ -255,27 +260,93 @@ def pantalla_inici():
                     inici = False
                 elif boto_rects[1].collidepoint(event.pos):
                     tipus_idx = (tipus_idx + 1) % len(tipus_preguntes)
+                elif boto_rects[2].collidepoint(event.pos):
+                    fade_out(finestra, duracio=0.5)
+                    pantalla_credits()
         pygame.display.flip()
 
+def pantalla_credits():
+    boto_font = pygame.font.Font("assets/retro_font.ttf", 13)  # 40% més petit que 19
+    titol_font = pygame.font.Font("assets/retro_font.ttf", 48)
+    petit_font = pygame.font.Font("assets/retro_font.ttf", 22)
+    github_color = (0, 102, 204)
 
-def wrap_text(text, font, max_width):
-    words = text.split()
-    lines = []
-    current_line = ""
+    # Logos rectangulars i més amples
+    logo_deq = pygame.image.load("assets/deq4future.png").convert_alpha()
+    logo_codelearn = pygame.image.load("assets/codelearn.png").convert_alpha()
+    logo_deq = pygame.transform.smoothscale(logo_deq, (240, 90))
+    logo_codelearn = pygame.transform.smoothscale(logo_codelearn, (240, 90))
 
-    for word in words:
-        test_line = current_line + " " + word if current_line else word
-        text_surface = font.render(test_line, True, NEGRE)
-        if text_surface.get_width() <= max_width:
-            current_line = test_line
-        else:
-            lines.append(current_line)
-            current_line = word
+    boto_rect = pygame.Rect((AMPLADA - 260) // 2, ALCADA - 90, 260, 40)
 
-    if current_line:
-        lines.append(current_line)
+    # Zones clicables pels links
+    arnau_link_rect = None
+    raul_link_rect = None
 
-    return lines
+    credits = True
+    while credits:
+        finestra.blit(fons, (0, 0))
+        # Títol
+        titol = titol_font.render("CRÈDITS", True, (0, 0, 0))
+        finestra.blit(titol, titol.get_rect(center=(AMPLADA // 2, 70)))
+
+        # Noms i links
+        y = 140
+        text1 = petit_font.render("Joc fet per:", True, (0, 0, 0))
+        finestra.blit(text1, text1.get_rect(center=(AMPLADA // 2, y)))
+        y += 36
+
+        # Arnau
+        arnau = petit_font.render("Arnau Pons (@arpons)", True, github_color)
+        arnau_rect = arnau.get_rect(center=(AMPLADA // 2, y))
+        finestra.blit(arnau, arnau_rect)
+        arnau_link = petit_font.render("github.com/arpons", True, github_color)
+        arnau_link_rect = arnau_link.get_rect(center=(AMPLADA // 2, y + 22))
+        finestra.blit(arnau_link, arnau_link_rect)
+        y += 50
+
+        # Raül
+        raul = petit_font.render("Raül Benito (@rauuul-dev)", True, github_color)
+        raul_rect = raul.get_rect(center=(AMPLADA // 2, y))
+        finestra.blit(raul, raul_rect)
+        raul_link = petit_font.render("github.com/rauuul-dev", True, github_color)
+        raul_link_rect = raul_link.get_rect(center=(AMPLADA // 2, y + 22))
+        finestra.blit(raul_link, raul_link_rect)
+        y += 50
+
+        # Hackathon
+        hack = petit_font.render('Per la Hackathon "Hack the Future"', True, (0, 0, 0))
+        finestra.blit(hack, hack.get_rect(center=(AMPLADA // 2, y)))
+        y += 36
+
+        # Logos més amunt i rectangulars i més amples
+        logos_y = y + 40
+        finestra.blit(logo_deq, logo_deq.get_rect(center=(AMPLADA // 2 - 140, logos_y)))
+        finestra.blit(logo_codelearn, logo_codelearn.get_rect(center=(AMPLADA // 2 + 140, logos_y)))
+
+        # Botó enrere més ample i text més petit
+        mouse = pygame.mouse.get_pos()
+        color = (255, 0, 128) if boto_rect.collidepoint(mouse) else (0, 0, 0)
+        pygame.draw.rect(finestra, color, boto_rect, border_radius=12)
+        text = boto_font.render("Torna enrere", True, (255, 255, 255))
+        text_rect = text.get_rect(center=boto_rect.center)
+        finestra.blit(text, text_rect)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if boto_rect.collidepoint(event.pos):
+                    fade_out(finestra, duracio=0.5)
+                    credits = False
+                elif arnau_link_rect and arnau_link_rect.collidepoint(event.pos):
+                    import webbrowser
+                    webbrowser.open("https://github.com/arpons")
+                elif raul_link_rect and raul_link_rect.collidepoint(event.pos):
+                    import webbrowser
+                    webbrowser.open("https://github.com/rauuul-dev")
+        pygame.display.flip()
 
 def reset_joc():
     global a, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, cop, respostaCorrecte
@@ -397,8 +468,33 @@ def reinicia_partida(ultima_pregunta=None):
     prepara_preguntes(ultima_pregunta)
     log_state()
 
+def fade_out(finestra, duracio=0.8):
+    """Transició de fade a negre sobre la finestra."""
+    clock = pygame.time.Clock()
+    fade_surface = pygame.Surface((AMPLADA, ALCADA))
+    fade_surface.fill((0, 0, 0))
+    passos = int(duracio * 60)  # 60 FPS
+    for alpha in range(0, 256, max(1, 255 // passos)):
+        fade_surface.set_alpha(alpha)
+        finestra.blit(fade_surface, (0, 0))
+        pygame.display.flip()
+        clock.tick(60)
+
+def dibuixa_slider_volum(volum):
+    slider_w, slider_h = 120, 16
+    slider_x = AMPLADA - slider_w - 30
+    slider_y = ALCADA - slider_h - 30
+    pygame.draw.rect(finestra, (80, 80, 80), (slider_x, slider_y, slider_w, slider_h), border_radius=8)
+    pygame.draw.rect(finestra, (255, 0, 128), (slider_x, slider_y, int(slider_w * volum), slider_h), border_radius=8)
+    font_slider = pygame.font.Font(default_font_name, 16)
+    # Més a l'esquerra perquè no solapi
+    txt = font_slider.render("Volum", True, (0, 0, 0))
+    finestra.blit(txt, (slider_x - 85, slider_y - 2))
+    return pygame.Rect(slider_x, slider_y, slider_w, slider_h)
+
 # Pantalla d'inici abans del bucle principal
 pantalla_inici()
+fade_out(finestra, duracio=0.8)  # <--- Afegit aquí
 log("Pantalla d'inici mostrada")
 
 # Prepara preguntes abans de començar el joc!
@@ -418,11 +514,17 @@ executant = True
 log("Iniciant bucle principal del joc")
 log_state()
 while executant:
+    slider_rect = dibuixa_slider_volum(volum)
     for esdeveniment in pygame.event.get():
         if esdeveniment.type == pygame.QUIT:
             log("Sortint del joc per esdeveniment QUIT")
             executant = False
         elif esdeveniment.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = esdeveniment.pos
+            if slider_rect.collidepoint(mouse_x, mouse_y):
+                rel_x = mouse_x - slider_rect.x
+                volum = max(0, min(1, rel_x / slider_rect.width))
+                pygame.mixer.music.set_volume(volum)
             mouse_x, mouse_y = esdeveniment.pos
             log("Click detectat", mouse_x=mouse_x, mouse_y=mouse_y)
             for i in range(4):

@@ -1,213 +1,213 @@
 PreResGen = [
     [
         "Quin és el riu més llarg del món?",
-        "Nil",
         "Amazones",
+        "Nil",
         "Yangtzé",
         "Mississipí"
     ],
     [
         "En quin país es troba la Torre Eiffel?",
-        "Espanya",
-        "Itàlia",
         "França",
-        "Alemanya"
+        "Alemanya",
+        "Itàlia",
+        "Espanya"
     ],
     [
         "Qui va pintar la Mona Lisa?",
-        "Van Gogh",
-        "Dalí",
+        "Leonardo da Vinci",
         "Picasso",
-        "Leonardo da Vinci"
+        "Dalí",
+        "Van Gogh"
     ],
     [
         "En quin continent està Egipte?",
-        "Àsia",
         "Àfrica",
+        "Amèrica",
         "Europa",
-        "Amèrica"
+        "Àsia"
     ],
     [
         "Quina és la capital d'Alemanya?",
         "Berlín",
-        "Munic",
+        "Frankfurt",
         "Hamburg",
-        "Frankfurt"
+        "Munic"
     ],
     [
         "Quants planetes té el sistema solar?",
-        "7",
         "8",
+        "10",
         "9",
-        "10"
+        "7"
     ],
     [
         "Quin és el metall més utilitzat al món?",
-        "Or",
-        "Alumini",
         "Ferro",
-        "Coure"
+        "Coure",
+        "Alumini",
+        "Or"
     ],
     [
         "Quin és l’animal més gran del món?",
-        "Elefant",
         "Balena blava",
         "Girafa",
-        "Rinoceront"
+        "Rinoceront",
+        "Elefant"
     ],
     [
         "Quin és l’idioma més parlat al món?",
-        "Anglès",
-        "Castellà",
         "Xinès mandarí",
-        "Àrab"
+        "Àrab",
+        "Castellà",
+        "Anglès"
     ],
     [
         "En quin país es troba el Machu Picchu?",
-        "Brasil",
-        "Xile",
         "Perú",
-        "Mèxic"
+        "Mèxic",
+        "Xile",
+        "Brasil"
     ],
     [
         "Quina és la moneda del Regne Unit?",
-        "Euro",
-        "Dòlar",
         "Lliura esterlina",
-        "Corona"
+        "Corona",
+        "Dòlar",
+        "Euro"
     ],
     [
         "Qui va escriure 'Romeu i Julieta'?",
         "Shakespeare",
-        "Cervantes",
+        "Tolstoi",
         "Goethe",
-        "Tolstoi"
+        "Cervantes"
     ],
     [
         "Quin és l’oceà més gran?",
-        "Atlàntic",
         "Pacífic",
+        "Àrtic",
         "Índic",
-        "Àrtic"
+        "Atlàntic"
     ],
     [
         "Quina és la capital del Japó?",
+        "Tòquio",
         "Pekín",
-        "Kyoto",
         "Osaka",
-        "Tòquio"
+        "Kyoto"
     ],
     [
         "Quin país té més habitants?",
-        "Índia",
-        "Estats Units",
         "Xina",
-        "Indonèsia"
+        "Indonèsia",
+        "Estats Units",
+        "Índia"
     ],
     [
         "Quin és el continent més petit?",
-        "Europa",
-        "Antàrtida",
         "Oceania",
-        "Àsia"
+        "Àsia",
+        "Antàrtida",
+        "Europa"
     ],
     [
         "Quin esport juga Messi?",
-        "Tennis",
         "Futbol",
+        "Handbol",
         "Bàsquet",
-        "Handbol"
+        "Tennis"
     ],
     [
         "Quin és el símbol químic de l’aigua?",
         "H2O",
-        "O2",
+        "H2O2",
         "HO2",
-        "H2O2"
+        "O2"
     ],
     [
         "Com es diu el satèl·lit natural de la Terra?",
         "Lluna",
-        "Sol",
+        "Plutó",
         "Estel",
-        "Plutó"
+        "Sol"
     ],
     [
         "Quina ciutat espanyola és coneguda per l’Alhambra?",
-        "Madrid",
-        "Barcelona",
         "Granada",
-        "Sevilla"
+        "Sevilla",
+        "Madrid",
+        "Barcelona"
     ],
     [
         "Quin és el país amb més illes?",
-        "Indonèsia",
-        "Canadà",
         "Suècia",
-        "Filipines"
+        "Filipines",
+        "Canadà",
+        "Indonèsia"
     ],
     [
         "Quin instrument té tecles blanques i negres?",
-        "Guitarra",
-        "Violí",
         "Piano",
-        "Trompeta"
+        "Trompeta",
+        "Violí",
+        "Guitarra"
     ],
     [
         "Com es diu la ciència que estudia els estels?",
-        "Geologia",
-        "Biologia",
         "Astronomia",
-        "Meteorologia"
+        "Meteorologia",
+        "Biologia",
+        "Geologia"
     ],
     [
         "Quin és el pintor de 'La nit estelada'?",
-        "Monet",
-        "Picasso",
         "Van Gogh",
-        "Rembrandt"
+        "Rembrandt",
+        "Picasso",
+        "Monet"
     ],
     [
         "Quina llengua es parla a Brasil?",
-        "Espanyol",
         "Portuguès",
+        "Anglès",
         "Francès",
-        "Anglès"
+        "Espanyol"
     ],
     [
         "Com es diu la capital de Catalunya?",
-        "Madrid",
         "Barcelona",
+        "Girona",
         "València",
-        "Girona"
+        "Madrid"
     ],
     [
         "Quin és l’animal més ràpid a la terra?",
         "Guepard",
-        "Tigre",
+        "Lleopard",
         "Cavall",
-        "Lleopard"
+        "Tigre"
     ],
     [
         "Quina és la muntanya més alta del món?",
         "Everest",
-        "K2",
+        "Annapurna",
         "Montblanc",
-        "Annapurna"
+        "K2"
     ],
     [
         "Quin inventor va descobrir la bombeta?",
-        "Newton",
-        "Tesla",
         "Edison",
-        "Galileu"
+        "Galileu",
+        "Tesla",
+        "Newton"
     ],
     [
         "Com es diu el planeta vermell?",
-        "Saturn",
-        "Venus",
         "Mart",
-        "Júpiter"
+        "Júpiter",
+        "Saturn",
+        "Venus"
     ],
 ]
 
