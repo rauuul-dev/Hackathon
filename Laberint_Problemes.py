@@ -42,6 +42,26 @@ PreRes = [
     ["Si la meitat d’un nombre menys 3 és igual a 7, quin és el nombre?", "14", "20", "24", "16"],
     ["Una botiga ven llapis a 1 € i bolígrafs a 2 €. Si una persona compra 10 objectes per un total de 15 €, quants llapis i bolígrafs ha comprat?", "5 llapis i 5 bolígrafs", "6 llapis i 4 bolígrafs", "4 llapis i 6 bolígrafs", "3 llapis i 7 bolígrafs"],
     ["En un examen, la puntuació s’obté segons la fórmula 2(x+3)=182(x+3)=18, on x és el nombre de respostes correctes. Quantes respostes correctes ha tingut?", "9", "5", "6", "7"],
+    ["Un nombre més 5 dona 12. Quin és el nombre?", "5", "6", "7", "8"],
+    ["El doble d’un nombre és 18. Quin és el nombre?", "10", "8", "9", "12"],
+    ["Si restes 4 a un nombre, obtens 9. Quin és el nombre?", "11", "13", "12", "10"],
+    ["Un nombre dividit entre 3 dona 7. Quin és el nombre?", "21", "18", "24", "27"],
+    ["Tres vegades un nombre és 27. Quin és el nombre?", "8", "9", "10", "11"],
+    ["Si sumes 8 a un nombre, obtens 20. Quin és el nombre?", "12", "10", "14", "15"],
+    ["Si multipliques un nombre per 5 obtens 45. Quin és el nombre?", "8", "10", "9", "11"],
+    ["La meitat d’un nombre és 16. Quin és el nombre?", "30", "34", "32", "36"],
+    ["Un nombre menys 6 dona 13. Quin és el nombre?", "17", "18", "19", "20"],
+    ["Si restes 9 d’un nombre i obtens 2, quin és el nombre?", "10", "11", "12", "13"],
+    ["El triple d’un nombre és 15. Quin és el nombre?", "4", "5", "6", "3"],
+    ["Si sumes 3 a un nombre i obtens 18, quin és el nombre?", "13", "14", "15", "16"],
+    ["Una entrada costa 7 € i compres 5. Quin és el cost total?", "30", "35", "40", "45"],
+    ["En Pau té 3 vegades l’edat de la seva germana. Si ella té 5 anys, quants anys té en Pau?", "10", "12", "15", "18"],
+    ["En una botiga, 4 bolígrafs costen 6 €. Quant costa 1 bolígraf?", "2 €", "1,5 €", "1 €", "3 €"],
+    ["En Jordi ha fet 5 exercicis més que en Marc. Si en Jordi n’ha fet 17, quants n’ha fet en Marc?", "11", "12", "13", "14"],
+    ["Si a un nombre li sumes 4 i després el dobles, obtens 20. Quin és el nombre?", "6", "7", "8", "5"],
+    ["Un número dividit per 4 dona 6. Quin és el número?", "20", "22", "24", "26"],
+    ["Si restes 7 a un nombre i obtens 10, quin és el nombre?", "15", "16", "17", "18"],
+    ["La suma de dos nombres consecutius és 41. Quin és el menor dels dos?", "20", "21", "19", "22"],
 ]
 
 # Taula de respostes correctes
@@ -56,6 +76,26 @@ ResCor = [
     "20",
     "5 llapis i 5 bolígrafs",
     "6",
+    "7",
+    "9",
+    "13",
+    "21",
+    "9",
+    "12",
+    "9",
+    "32",
+    "19",
+    "11",
+    "5",
+    "15",
+    "35",
+    "15",
+    "1,5 €",
+    "12",
+    "6",
+    "24",
+    "17",
+    "20",
 ]
 
 preguntesJoc = []
@@ -77,7 +117,6 @@ def prepara_preguntes(ultima_pregunta=None):
         break
 
 p1 = p2 = p3 = p4 = p5 = p6 = p7 = p8 = p9 = p10 = False
-
 
 # Dimensions de les portes
 ample_porta = 160
@@ -196,7 +235,15 @@ def reset_joc():
 
 score = 100  # Puntuació inicial
 
-def envia_estat_joc(game_id, pregunta_actual, encerts, score):
+# Nova variable per controlar la freqüència d'enviament (en segons)
+ENVIAMENT_INTERVAL = 10
+ultim_enviament = time.time()
+
+def envia_estat_joc(game_id, pregunta_actual, encerts, score, forcat=False):
+    global ultim_enviament
+    ara = time.time()
+    if not forcat and ara - ultim_enviament < ENVIAMENT_INTERVAL:
+        return  # No enviïs encara
     url = "https://fun.codelearn.cat/hackathon/game/store_progress"
     dades = {
         "game_id": game_id,
@@ -215,6 +262,7 @@ def envia_estat_joc(game_id, pregunta_actual, encerts, score):
             print("Resposta no JSON:", resposta.text)
     except Exception as e:
         print("Error enviant estat:", e)
+    ultim_enviament = ara
 
 def envia_final_joc(game_id, encerts, score):
     url = "https://fun.codelearn.cat/hackathon/game/finalize"
@@ -244,7 +292,6 @@ def pantalla_victoria():
     pygame.display.flip()
     envia_final_joc(game_id, sum([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]), score)
     pygame.time.wait(3000)  # Espera 3 segons
-    # No reiniciem el joc automàticament
 
 def comprovacio():
     if p1:
@@ -321,30 +368,28 @@ while executant:
                     else:
                         if score > 30:
                             score = max(30, score - 5)
-                        # Si falles, reinicia la partida
                         print("Has fallat! Torna a començar.")
-                        # Passa la pregunta actual a reinicia_partida
                         reinicia_partida(preguntesJoc[a][0])
                         encertades_seguides = 0
                         portes()
-                        envia_estat_joc(game_id, a, 0, score)
-                        break  # Surt del for per evitar incrementar a
+                        envia_estat_joc(game_id, a, 0, score, forcat=True)
+                        break
                     a += 1
-
-                    # Si has encertat 10 seguides, surts del laberint
                     if encertades_seguides == 10:
                         pantalla_victoria()
                         executant = False
                         break
-
-                    # Si encara no has acabat, mostra la següent pregunta
                     if a < 10:
                         portes()
                         respostaCorrecte = False
+                        # Ara només envia si han passat 10 segons
                         envia_estat_joc(game_id, a, encertades_seguides, score)
     if cop == 0:
         portes()
         cop = 1
+
+    # També envia l'estat cada 10 segons encara que no hi hagi resposta nova
+    envia_estat_joc(game_id, a, encertades_seguides, score)
 
     pygame.display.flip()
 
