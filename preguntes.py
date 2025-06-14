@@ -44,7 +44,7 @@ ResCorProg = [
 ]
 
 # Taula pregunta respostes
-PreRes = [
+PreResMat = [
     ["Una entrada general per un concert costa 15 €, i una entrada VIP costa 25 €. Si s’han venut 4 entrades generals i 2 VIP, quin ha estat l’import total recaptat?", "110 €", "100 €", "120 €", "90 €"],
     ["En Joan té 12 anys més que en Pere. Si la suma de les seves edats és 40, quants anys tenen en Joan i en Pere?", "Joan: 20, Pere: 20", "Joan: 26, Pere: 14", "Joan: 24, Pere: 16", "Joan: 28, Pere: 12"],
     ["La Maria compra pomes a 2 € cadascuna. Si es gasta 18 €, quantes pomes ha comprat?", "8 pomes", "10 pomes", "6 pomes", "9 pomes"],
@@ -78,7 +78,7 @@ PreRes = [
 ]
 
 # Taula de respostes correctes
-ResCor = [
+ResCorMat = [
     "110 €",
     "Joan: 26, Pere: 14",
     "9 pomes",
@@ -109,4 +109,53 @@ ResCor = [
     "24",
     "17",
     "20",
+]
+
+
+# Taula pregunta respostes
+PreResGen = [
+    ["Quin és el riu més llarg del món?", "Amazones", "Nil", "Danubi", "Mississipí"],
+    ["Quin és el país amb més habitants del món?", "Índia", "Estats Units", "Xina", "Indonèsia"],
+    ["Qui va pintar la Mona Lisa?", "Dalí", "Picasso", "Van Gogh", "Leonardo da Vinci"],
+    ["Quin planeta és més proper al Sol?", "Venus", "Març", "Mercuri", "Terra"],
+    ["En quin any va arribar l’home a la Lluna?", "1969", "1971", "1965", "1959"],
+    ["Quin és l’idioma més parlat del món?", "Anglès", "Castellà", "Xinès mandarí", "Àrab"],
+    ["Qui va escriure *El Quixot*?", "Gabriel García Márquez", "Miguel de Cervantes", "Federico García Lorca", "Lope de Vega"],
+    ["Quants continents hi ha?", "5", "6", "7", "8"],
+    ["Quina ciutat és la capital d’Austràlia?", "Sydney", "Canberra", "Melbourne", "Perth"],
+    ["Com es diu el procés pel qual les plantes fabriquen el seu aliment?", "Fermentació", "Digestió", "Fotosíntesi", "Transpiració"],
+    ["Quina és la moneda oficial del Regne Unit?", "Euro", "Lliura", "Dòlar", "Franc"],
+    ["En quin oceà es troba Hawaii?", "Atlàntic", "Índic", "Pacífic", "Àrtic"],
+    ["Qui va ser el primer president dels Estats Units?", "Abraham Lincoln", "George Washington", "Thomas Jefferson", "John Adams"],
+    ["Quin és l'os més gran del cos humà?", "Húmer", "Fèmur", "Tibia", "Crani"],
+    ["Quin animal és conegut com el rei de la selva?", "Elefant", "Lleopard", "Lleó", "Tigre"],
+    ["Quin és l’element químic amb símbol O?", "Or", "Oxigen", "Osmiridi", "Oli"],
+    ["En quin país es troba la Torre Eiffel?", "Itàlia", "Espanya", "França", "Alemanya"],
+    ["Quantes tecles té un piano clàssic?", "66", "72", "88", "90"],
+    ["Quin país va inventar la pólvora?", "Japó", "Xina", "Grècia", "Índia"],
+    ["Quina és la muntanya més alta del món?", "Mont Blanc", "Everest", "Aconcagua", "K2"],
+]
+
+# Taula de respostes correctes
+ResCorGen = [
+    "Nil",
+    "Índia",
+    "Leonardo da Vinci",
+    "Mercuri",
+    "1969",
+    "Xinès mandarí",
+    "Miguel de Cervantes",
+    "7",
+    "Canberra",
+    "Fotosíntesi",
+    "Lliura",
+    "Pacífic",
+    "George Washington",
+    "Fèmur",
+    "Lleó",
+    "Oxigen",
+    "França",
+    "88",
+    "Xina",
+    "Everest",
 ]

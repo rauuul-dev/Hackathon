@@ -2,7 +2,31 @@ import pygame
 import random
 import requests
 import time
-from preguntes import PreRes, ResCor
+from preguntes import PreResProg, ResCorProg, PreResMat, ResCorMat, PreResGen, ResCorGen
+
+import sys
+
+def log(msg, **vars):
+    """Mostra missatges de log amb format i valors de variables."""
+    prefix = "[LOG]"
+    if vars:
+        var_str = " | " + " | ".join(f"{k}={v!r}" for k, v in vars.items())
+    else:
+        var_str = ""
+    print(f"{prefix} {msg}{var_str}")
+
+def log_state():
+    """Mostra l'estat de les variables importants."""
+    important_vars = {
+        "a": a,
+        "encertades_seguides": encertades_seguides,
+        "encerts_totals": encerts_totals,
+        "score": score,
+        "num_errors": num_errors,
+        "executant": executant,
+        "pregunta_actual": preguntesJoc[a][0] if a < len(preguntesJoc) else "N/A"
+    }
+    print("\n[STATE] " + " | ".join(f"{k}={v!r}" for k, v in important_vars.items()) + "\n")
 
 # Inicialitzem Pygame
 pygame.init()
@@ -23,13 +47,13 @@ porta_imgs = [
 ]
 
 # Conexió amb servidor
+log("Connectant amb el servidor per obtenir seed i game_id...")
 resposta = requests.get("https://fun.codelearn.cat/hackathon/game/new")
 dades = resposta.json()
 
 seed = dades["seed"]
-print(seed)
 game_id = dades["game_id"]
-print(game_id)
+log("Seed i game_id rebuts", seed=seed, game_id=game_id)
 
 random.seed(seed)
 
@@ -42,21 +66,32 @@ NEGRE = (0, 0, 0)
 
 preguntesJoc = []
 respostesJoc = []
+preguntes_seleccionades = []
+respostes_seleccionades = []
+
+tipus_preguntes = [
+    ("Programació", PreResProg, ResCorProg),
+    ("Matemàtiques", PreResMat, ResCorMat),
+    ("Cultura General", PreResGen, ResCorGen)
+]
+tipus_idx = 0  # Per defecte, programació
 
 def prepara_preguntes(ultima_pregunta=None):
-    global preguntesJoc, respostesJoc
-    while True:
-        preguntesJoc = []
-        respostesJoc = []
+    global preguntesJoc, respostesJoc, preguntes_seleccionades, respostes_seleccionades, PreRes, ResCor
+    log("Preparant preguntes...", ultima_pregunta=ultima_pregunta)
+    if not preguntes_seleccionades:
         indexos = random.sample(range(len(PreRes)), 10)
-        if ultima_pregunta is not None:
-            # Comprova que la primera pregunta no sigui la mateixa que l'última vista
-            if PreRes[indexos[0]][0] == ultima_pregunta:
-                continue
-        for idx in indexos:
-            preguntesJoc.append(PreRes[idx])
-            respostesJoc.append(ResCor[idx])
-        break
+        preguntes_seleccionades = [PreRes[idx] for idx in indexos]
+        respostes_seleccionades = [ResCor[idx] for idx in indexos]
+        log("Preguntes seleccionades", preguntes_seleccionades=preguntes_seleccionades)
+    while True:
+        indices_aleatoris = list(range(10))
+        random.shuffle(indices_aleatoris)
+        if ultima_pregunta is None or preguntes_seleccionades[indices_aleatoris[0]][0] != ultima_pregunta:
+            break
+    preguntesJoc = [preguntes_seleccionades[i] for i in indices_aleatoris]
+    respostesJoc = [respostes_seleccionades[i] for i in indices_aleatoris]
+    log("Preguntes barrejades", preguntesJoc=preguntesJoc)
 
 p1 = p2 = p3 = p4 = p5 = p6 = p7 = p8 = p9 = p10 = False
 
@@ -94,11 +129,11 @@ def portes():
         finestra.blit(porta_img, (x, y))
 
         # Centra la resposta al centre de la porta
-        lines = wrap_text(preguntesJoc[a][i + 1], font, ample_porta - 10)
+        lines = wrap_text(preguntesJoc[a][i + 1], font, ample_porta - 20)
         total_text_height = len(lines) * font.get_height()
         y_text = y + (alt_porta // 2) - (total_text_height // 2)
         for line in lines:
-            text_surface = font.render(line, True, NEGRE)
+            text_surface = font.render(line, True, (255, 255, 255))  # Canviat a blanc
             text_rect = text_surface.get_rect(center=(x + ample_porta // 2, y_text))
             finestra.blit(text_surface, text_rect)
             y_text += text_surface.get_height()
@@ -113,25 +148,43 @@ def portes():
         y_preg += text_surface.get_height() + 2
 
 def pantalla_inici():
+    global tipus_idx, PreRes, ResCor
     boto_rects = []
-    boto_texts = ["Comença", "Tipus: General"]  # Pots afegir més tipus en el futur
-    boto_font = pygame.font.Font("assets/retro_font.ttf", 36)
+    boto_font = pygame.font.Font("assets/retro_font.ttf", 32)
     logo = pygame.image.load("assets/logo.png").convert_alpha()
     logo_rect = logo.get_rect(center=(AMPLADA // 2, 220))
-    for i, text in enumerate(boto_texts):
-        rect = pygame.Rect((AMPLADA - 300) // 2, 350 + i * 90, 300, 70)
-        boto_rects.append(rect)
+    boto_w, boto_h = 500, 70
+    boto_margin = 18  # Espai intern pels costats
+
     inici = True
-    tipus_idx = 0
     while inici:
+        # Texts actualitzats segons el tipus seleccionat
+        boto_texts = [
+            "Comença",
+            f"Tipus: {tipus_preguntes[tipus_idx][0]}"
+        ]
+        boto_rects = [
+            pygame.Rect((AMPLADA - boto_w) // 2, 350, boto_w, boto_h),
+            pygame.Rect((AMPLADA - boto_w) // 2, 350 + 90, boto_w, boto_h)
+        ]
+
         finestra.blit(fons, (0, 0))
         finestra.blit(logo, logo_rect)
         mouse = pygame.mouse.get_pos()
         for i, rect in enumerate(boto_rects):
             color = (255, 0, 128) if rect.collidepoint(mouse) else (0, 0, 0)
             pygame.draw.rect(finestra, color, rect, border_radius=12)
+            # Renderitza el text i centra'l amb marge intern
             text = boto_font.render(boto_texts[i], True, (255, 255, 255))
-            text_rect = text.get_rect(center=rect.center)
+            text_rect = text.get_rect()
+            text_rect.center = rect.center
+            # Ajusta el text perquè no quedi enganxat als costats
+            if text_rect.width > rect.width - 2 * boto_margin:
+                # Si el text és massa llarg, redueix la mida de la font
+                shrink_font = pygame.font.Font("assets/retro_font.ttf", 24)
+                text = shrink_font.render(boto_texts[i], True, (255, 255, 255))
+                text_rect = text.get_rect()
+                text_rect.center = rect.center
             finestra.blit(text, text_rect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -139,9 +192,13 @@ def pantalla_inici():
                 exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if boto_rects[0].collidepoint(event.pos):
+                    PreRes, ResCor = tipus_preguntes[tipus_idx][1], tipus_preguntes[tipus_idx][2]
+                    preguntes_seleccionades.clear()
+                    respostes_seleccionades.clear()
+                    prepara_preguntes()
                     inici = False
                 elif boto_rects[1].collidepoint(event.pos):
-                    tipus_idx = (tipus_idx + 1) % 1  # Canvia el tipus de preguntes (afegeix més si vols)
+                    tipus_idx = (tipus_idx + 1) % len(tipus_preguntes)
         pygame.display.flip()
 
 
@@ -170,6 +227,8 @@ def reset_joc():
     p1 = p2 = p3 = p4 = p5 = p6 = p7 = p8 = p9 = p10 = False
     cop = 0
     respostaCorrecte = False
+    log("Joc reiniciat")
+    log_state()
 
 score = 100  # Puntuació inicial
 
@@ -192,16 +251,16 @@ def envia_estat_joc(game_id, pregunta_actual, encerts, score, forcat=False):
             "errors": num_errors
         }
     }
-    print("Enviant al servidor:", dades)
+    log("Enviant estat al servidor", **dades["data"])
     try:
         resposta = requests.post(url, json=dades)
         if resposta.headers.get("Content-Type", "").startswith("application/json"):
             resposta_json = resposta.json()
-            print("Resposta servidor:", resposta_json)
+            log("Resposta del servidor", resposta=resposta_json)
         else:
-            print("Resposta no JSON:", resposta.text)
+            log("Resposta no JSON", resposta=resposta.text)
     except Exception as e:
-        print("Error enviant estat:", e)
+        log("Error enviant estat", error=str(e))
     ultim_enviament = ara
 
 def envia_final_joc(game_id, encerts, score):
@@ -213,16 +272,16 @@ def envia_final_joc(game_id, encerts, score):
         },
         "score": score
     }
-    print("Enviant al servidor (final):", dades)  # Mostra el que s'envia
+    log("Enviant finalització al servidor", encerts=encerts, score=score)
     try:
         resposta = requests.post(url, json=dades)
         if resposta.headers.get("Content-Type", "").startswith("application/json"):
             resposta_json = resposta.json()
-            print("Finalització servidor:", resposta_json)  # Mostra el que retorna
+            log("Resposta final del servidor", resposta=resposta_json)
         else:
-            print("Resposta no JSON:", resposta.text)
+            log("Resposta no JSON", resposta=resposta.text)
     except Exception as e:
-        print("Error finalitzant joc:", e)
+        log("Error finalitzant joc", error=str(e))
 
 def pantalla_victoria():
     font_gran = pygame.font.Font("assets/retro_font.ttf", 72)
@@ -231,6 +290,8 @@ def pantalla_victoria():
     finestra.blit(fons, (0, 0))
     finestra.blit(text, text_rect)
     pygame.display.flip()
+    log("PARTIDA GUANYADA! 🏆")
+    log_state()
     pygame.time.wait(3000)
 
 def comprovacio():
@@ -267,17 +328,21 @@ def comprovacio():
         a = 0
 
 def reinicia_partida(ultima_pregunta=None):
-    global a, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, respostaCorrecte, preguntesJoc, respostesJoc
+    global a, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, respostaCorrecte
     a = 0
     p1 = p2 = p3 = p4 = p5 = p6 = p7 = p8 = p9 = p10 = False
     respostaCorrecte = False
+    log("Reiniciant partida", ultima_pregunta=ultima_pregunta)
     prepara_preguntes(ultima_pregunta)
+    log_state()
 
 # Pantalla d'inici abans del bucle principal
 pantalla_inici()
+log("Pantalla d'inici mostrada")
 
 # Prepara preguntes abans de començar el joc!
 prepara_preguntes()
+log("Preguntes preparades")
 
 # Bucle principal
 
@@ -285,34 +350,43 @@ cop = 0
 a = 0
 respostaCorrecte = False
 
-# Variable per controlar si s'han encertat totes
 encertades_seguides = 0
+encerts_totals = 0
 
 executant = True
+log("Iniciant bucle principal del joc")
+log_state()
 while executant:
     for esdeveniment in pygame.event.get():
         if esdeveniment.type == pygame.QUIT:
+            log("Sortint del joc per esdeveniment QUIT")
             executant = False
         elif esdeveniment.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = esdeveniment.pos
+            log("Click detectat", mouse_x=mouse_x, mouse_y=mouse_y)
             for i in range(4):
                 x = marge_lateral + i * (ample_porta + espai_entre_portes)
                 y = (ALCADA - alt_porta) // 2 - 30
                 porta_rect = pygame.Rect(x, y, ample_porta, alt_porta)
                 if porta_rect.collidepoint(mouse_x, mouse_y):
-                    print("Resposta escollida:", preguntesJoc[a][i + 1])
-                    print("Resposta correcta:", respostesJoc[a])
-                    if preguntesJoc[a][i + 1] == respostesJoc[a]:
+                    resposta_escollida = preguntesJoc[a][i + 1]
+                    resposta_correcta = respostesJoc[a]
+                    log("Porta clicada", porta=i+1, resposta_escollida=resposta_escollida, resposta_correcta=resposta_correcta)
+                    if resposta_escollida == resposta_correcta:
                         respostaCorrecte = True
                         encertades_seguides += 1
+                        encerts_totals += 1
+                        log("Resposta correcta!", encertades_seguides=encertades_seguides, encerts_totals=encerts_totals)
                     else:
                         if score > 30:
                             score = max(30, score - 5)
-                        print("Has fallat! Torna a començar.")
+                        log("Resposta incorrecta! Torna a començar.", score=score)
                         reinicia_partida(preguntesJoc[a][0])
+                        encertades_seguides = 0
                         num_errors += 1
                         portes()
-                        envia_estat_joc(game_id, a, encertades_seguides, score, forcat=True)
+                        envia_estat_joc(game_id, encertades_seguides, encerts_totals, score, forcat=True)
+                        log_state()
                         break
                     a += 1
                     if encertades_seguides == 10:
@@ -322,16 +396,17 @@ while executant:
                     if a < 10:
                         portes()
                         respostaCorrecte = False
-                        # Ara només envia si han passat 10 segons
-                        envia_estat_joc(game_id, a, encertades_seguides, score)
+                        envia_estat_joc(game_id, a, encerts_totals, score)
+                        log_state()
     if cop == 0:
+        log("Dibuixant portes per primer cop")
         portes()
         cop = 1
 
-    # També envia l'estat cada 10 segons encara que no hi hagi resposta nova
-    envia_estat_joc(game_id, a, encertades_seguides, score)
+    envia_estat_joc(game_id, a, encerts_totals, score)
 
     pygame.display.flip()
 
 # Tanquem Pygame
+log("Tancant Pygame. Joc finalitzat.")
 pygame.quit()
