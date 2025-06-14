@@ -228,8 +228,8 @@ def pantalla_inici():
         # Ara amb separació d'alçada entre botons
         boto_rects = [
             pygame.Rect((AMPLADA - boto_w) // 2, 350, boto_w, boto_h),
-            pygame.Rect((AMPLADA - boto_w) // 2, 350 + 90, boto_w, boto_h),
-            pygame.Rect((AMPLADA - boto_w) // 2, 350 + 180, boto_w, boto_h)
+            pygame.Rect((AMPLADA - boto_w) // 2, 350 + 80, boto_w, boto_h),
+            pygame.Rect((AMPLADA - boto_w) // 2, 350 + 160, boto_w, boto_h)
         ]
 
         finestra.blit(fons, (0, 0))
@@ -487,9 +487,9 @@ def dibuixa_slider_volum(volum):
     pygame.draw.rect(finestra, (80, 80, 80), (slider_x, slider_y, slider_w, slider_h), border_radius=8)
     pygame.draw.rect(finestra, (255, 0, 128), (slider_x, slider_y, int(slider_w * volum), slider_h), border_radius=8)
     font_slider = pygame.font.Font(default_font_name, 16)
-    # Més a l'esquerra perquè no solapi
+    # Més cap a l'esquerra (abans era slider_x - 60)
     txt = font_slider.render("Volum", True, (0, 0, 0))
-    finestra.blit(txt, (slider_x - 85, slider_y - 2))
+    finestra.blit(txt, (slider_x - 90, slider_y - 2))
     return pygame.Rect(slider_x, slider_y, slider_w, slider_h)
 
 # Pantalla d'inici abans del bucle principal
